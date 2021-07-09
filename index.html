@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body id='body' style="background-image: url('/root/Downloads/quran.jpg');">
+    <input id='input' type="text" placeholder="Nechinchi oyat kerak" style=" margin-left: 580px;">
+    <h1 id="name1" style="text-align: center;"> Kamron </h1>
+    <h1 id="text"></h1>
+    <script>
+        async function asd(){
+            let response = await fetch(`https://api.alquran.cloud/v1/surah/1`)
+            let surah = await response.json()
+            console.log(surah)
+        }
+        asd()
+        input.onkeyup = async (event) =>{
+            if(event.keyCode == 13){
+                let response = await fetch(`https://api.alquran.cloud/v1/surah/${input.value}`)
+                let surah = await response.json()
+                console.log(response)
+                name1.textContent=surah.data.englishName
+                for(let i=0;i<surah.data.ayahs.length;i++){
+                   let el = document.createElement('h1')
+                   el.textContent = surah.data.ayahs[i].text
+                   body.append(el)
+                   
+                }
+                
+            }
+
+        }
+    </script>
+</body>
+</html>
